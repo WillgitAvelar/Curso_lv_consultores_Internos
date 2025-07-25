@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seção de Imagens Adaptável com Lightbox - Demonstração</title>
+    <meta name="description" content="Demonstração da seção de imagens adaptável com funcionalidade de lightbox para visualização em tela cheia">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2E8B57;
+            --secondary-green: #3CB371;
+            --accent-green: #90EE90;
+            --dark-green: #1F5F3F;
+            --light-green: #F0FFF0;
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --border-color: #E9ECEF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            border-radius: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: var(--light-gray);
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-green);
+        }
+
+        .section h2 {
+            color: var(--primary-green);
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        .section h3 {
+            color: var(--text-dark);
+            margin: 25px 0 15px 0;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .code-example {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--light-green), rgba(144, 238, 144, 0.3));
+            padding: 20px;
+            border-left: 5px solid var(--secondary-green);
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-item i {
+            font-size: 2.5em;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .feature-item h4 {
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .feature-item p {
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        /* Incluindo os estilos da seção de imagens adaptável com lightbox */
+        .adaptive-image-frame {
+            display: inline-block;
+            position: relative;
+            margin: 25px auto;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--light-green), rgba(144, 238, 144, 0.2));
+            border: 3px solid var(--primary-green);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .adaptive-image-frame:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+            border-color: var(--secondary-green);
+        }
+
+        .adaptive-image-frame img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .adaptive-image-frame img:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
+        .adaptive-image-container {
+            text-align: center;
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .adaptive-image-frame.subtle {
+            border: 2px solid rgba(46, 139, 87, 0.3);
+            background: rgba(240, 255, 240, 0.5);
+            padding: 10px;
+        }
+
+        .adaptive-image-frame.subtle:hover {
+            border-color: var(--primary-green);
+            background: rgba(240, 255, 240, 0.8);
+        }
+
+        .adaptive-image-frame.elevated {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: none;
+            background: var(--white);
+        }
+
+        .adaptive-image-frame.elevated:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .adaptive-image-caption {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: var(--text-light);
+            font-style: italic;
+            text-align: center;
+        }
+
+        .adaptive-images-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .adaptive-images-row .adaptive-image-frame {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+            margin: 0;
+        }
+
+        .adaptive-image-frame.fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== LIGHTBOX/MODAL STYLES ===== */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: default;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-overlay.active .lightbox-image {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: -10px;
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 10000;
+        }
+
+        .lightbox-close:hover {
+            background: var(--secondary-green);
+            transform: scale(1.1);
+        }
+
+        .zoom-indicator {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(46, 139, 87, 0.9);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .lightbox-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        body.lightbox-active {
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .adaptive-image-frame {
+                margin: 20px auto;
+                padding: 12px;
+                max-width: 95%;
+            }
+            
+            .adaptive-images-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .adaptive-images-row .adaptive-image-frame {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .lightbox-container {
+                max-width: 95%;
+                max-height: 85%;
+            }
+
+            .lightbox-close {
+                top: -40px;
+                right: 0;
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .zoom-indicator {
+                bottom: -40px;
+                font-size: 0.8em;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-images"></i> Seção de Imagens com Lightbox</h1>
+            <p>Demonstração da nova funcionalidade onde a moldura se ajusta automaticamente e as imagens podem ser visualizadas em tela cheia</p>
+        </header>
+
+        <section class="section">
+            <h2><i class="fas fa-magic"></i> Funcionalidades</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                    <h4>Moldura Adaptável</h4>
+                    <p>Se ajusta automaticamente ao tamanho da imagem</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-search-plus"></i>
+                    <h4>Lightbox Integrado</h4>
+                    <p>Clique na imagem para visualizar em tela cheia</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Responsivo</h4>
+                    <p>Funciona perfeitamente em todos os dispositivos</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-palette"></i>
+                    <h4>Estilo Consistente</h4>
+                    <p>Mantém a identidade visual do site</p>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <strong>Como usar o Lightbox:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Clique na imagem</strong> para abrir em tela cheia</li>
+                    <li><strong>Clique novamente na imagem</strong> ou no fundo escuro para fechar</li>
+                    <li><strong>Use o botão X</strong> no canto superior direito para fechar</li>
+                    <li><strong>Pressione ESC</strong> no teclado para fechar</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-code"></i> Uso Básico</h2>
+            <p>Para usar a seção de imagens com lightbox, basta usar a seguinte estrutura HTML:</p>
+            
+            <div class="code-example">
+&lt;div class="adaptive-image-container"&gt;
+    &lt;div class="adaptive-image-frame"&gt;
+        &lt;img src="caminho-da-imagem.jpg" alt="Descrição da imagem"&gt;
+        &lt;div class="adaptive-image-caption"&gt;Legenda opcional&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-eye"></i> Demonstrações - Clique nas Imagens!</h2>
+            
+            <h3>1. Imagem Padrão</h3>
+            <p>Moldura padrão com estilo verde. <strong>Clique na imagem para ver em tela cheia:</strong></p>
+            
+            <div class="adaptive-image-container">
+                <div class="adaptive-image-frame fade-in">
+                    <img src="https://via.placeholder.com/400x300/2E8B57/FFFFFF?text=Clique+para+Ampliar+400x300" alt="Exemplo de imagem 400x300">
+                    <div class="adaptive-image-caption">Imagem 400x300 pixels - Clique para ampliar</div>
+                </div>
+            </div>
+
+            <h3>2. Imagem Vertical</h3>
+            <p>A moldura se adapta perfeitamente a imagens verticais:</p>
+            
+            <div class="adaptive-image-container">
+                <div class="adaptive-image-frame subtle fade-in">
+                    <img src="https://via.placeholder.com/300x500/3CB371/FFFFFF?text=Imagem+Vertical+Clique+Aqui" alt="Exemplo de imagem vertical">
+                    <div class="adaptive-image-caption">Imagem vertical 300x500 pixels - Estilo sutil</div>
+                </div>
+            </div>
+
+            <h3>3. Imagem Horizontal</h3>
+            <p>Funciona igualmente bem com imagens horizontais:</p>
+            
+            <div class="adaptive-image-container">
+                <div class="adaptive-image-frame elevated fade-in">
+                    <img src="https://via.placeholder.com/600x200/90EE90/2C3E50?text=Imagem+Horizontal+Lightbox" alt="Exemplo de imagem horizontal">
+                    <div class="adaptive-image-caption">Imagem horizontal 600x200 pixels - Estilo elevado</div>
+                </div>
+            </div>
+
+            <h3>4. Múltiplas Imagens</h3>
+            <p>Todas as imagens têm lightbox individual:</p>
+            
+            <div class="adaptive-images-row">
+                <div class="adaptive-image-frame fade-in">
+                    <img src="https://via.placeholder.com/250x200/2E8B57/FFFFFF?text=Primeira+Imagem" alt="Primeira imagem">
+                    <div class="adaptive-image-caption">Primeira imagem</div>
+                </div>
+                <div class="adaptive-image-frame fade-in">
+                    <img src="https://via.placeholder.com/250x300/3CB371/FFFFFF?text=Segunda+Imagem" alt="Segunda imagem">
+                    <div class="adaptive-image-caption">Segunda imagem</div>
+                </div>
+                <div class="adaptive-image-frame fade-in">
+                    <img src="https://via.placeholder.com/250x150/90EE90/2C3E50?text=Terceira+Imagem" alt="Terceira imagem">
+                    <div class="adaptive-image-caption">Terceira imagem</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-cogs"></i> Implementação</h2>
+            <p>Para implementar em seu projeto, você precisa de:</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-file-code"></i>
+                    <h4>CSS</h4>
+                    <p>Arquivo de estilos para molduras e lightbox</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-code"></i>
+                    <h4>JavaScript</h4>
+                    <p>Script para funcionalidade do lightbox</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-html5"></i>
+                    <h4>HTML</h4>
+                    <p>Estrutura simples para as imagens</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-rocket"></i>
+                    <h4>Plug & Play</h4>
+                    <p>Funciona automaticamente após inclusão</p>
+                </div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; margin-top: 50px; padding: 30px; background: var(--light-green); border-radius: 15px;">
+            <h3 style="color: var(--primary-green); margin-bottom: 15px;">
+                <i class="fas fa-check-circle"></i> Pronto para Usar!
+            </h3>
+            <p style="color: var(--text-dark);">
+                A seção de imagens adaptável com lightbox está pronta para ser integrada ao seu site. 
+                Experimente clicar nas imagens acima para ver o lightbox em ação!
+            </p>
+        </footer>
+    </div>
+
+    <!-- Incluir o JavaScript do lightbox -->
+    <script src="lightbox.js"></script>
+</body>
+</html>
+

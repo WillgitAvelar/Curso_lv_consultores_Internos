@@ -1,0 +1,330 @@
+/* Seção de Imagens Adaptável com Lightbox - Litoral Verde */
+
+/* Moldura adaptável que se ajusta ao tamanho da imagem */
+.adaptive-image-frame {
+    display: inline-block;
+    position: relative;
+    margin: 25px auto;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--light-green), rgba(144, 238, 144, 0.2));
+    border: 3px solid var(--primary-green);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    max-width: 100%;
+    text-align: center;
+}
+
+.adaptive-image-frame:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+    border-color: var(--secondary-green);
+}
+
+/* Imagem dentro da moldura adaptável */
+.adaptive-image-frame img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    transition: var(--transition);
+    cursor: pointer; /* Indica que a imagem é clicável */
+}
+
+.adaptive-image-frame img:hover {
+    transform: scale(1.02);
+    opacity: 0.9;
+}
+
+/* Contêiner centralizado para a moldura */
+.adaptive-image-container {
+    text-align: center;
+    margin: 30px 0;
+    width: 100%;
+}
+
+/* Variação com borda mais sutil */
+.adaptive-image-frame.subtle {
+    border: 2px solid rgba(46, 139, 87, 0.3);
+    background: rgba(240, 255, 240, 0.5);
+    padding: 10px;
+}
+
+.adaptive-image-frame.subtle:hover {
+    border-color: var(--primary-green);
+    background: rgba(240, 255, 240, 0.8);
+}
+
+/* Variação com sombra mais pronunciada */
+.adaptive-image-frame.elevated {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border: none;
+    background: var(--white);
+}
+
+.adaptive-image-frame.elevated:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Legenda opcional para a imagem */
+.adaptive-image-caption {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: var(--text-light);
+    font-style: italic;
+    text-align: center;
+}
+
+/* Estilo para múltiplas imagens em linha */
+.adaptive-images-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.adaptive-images-row .adaptive-image-frame {
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
+    margin: 0;
+}
+
+/* Animação de entrada suave */
+.adaptive-image-frame.fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== LIGHTBOX/MODAL STYLES ===== */
+
+/* Overlay do lightbox */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.lightbox-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Container da imagem no lightbox */
+.lightbox-container {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+/* Imagem no lightbox */
+.lightbox-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.lightbox-overlay.active .lightbox-image {
+    transform: scale(1);
+}
+
+/* Botão de fechar */
+.lightbox-close {
+    position: absolute;
+    top: -50px;
+    right: -10px;
+    background: var(--primary-green);
+    color: var(--white);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    z-index: 10000;
+}
+
+.lightbox-close:hover {
+    background: var(--secondary-green);
+    transform: scale(1.1);
+}
+
+/* Indicador de zoom */
+.zoom-indicator {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(46, 139, 87, 0.9);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Efeito de loading */
+.lightbox-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid var(--primary-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    .adaptive-image-frame {
+        margin: 20px auto;
+        padding: 12px;
+        max-width: 95%;
+    }
+    
+    .adaptive-image-frame img {
+        border-radius: 8px;
+    }
+    
+    .adaptive-image-caption {
+        font-size: 0.85em;
+        margin-top: 10px;
+    }
+    
+    .adaptive-images-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .adaptive-images-row .adaptive-image-frame {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Lightbox no mobile */
+    .lightbox-container {
+        max-width: 95%;
+        max-height: 85%;
+    }
+
+    .lightbox-close {
+        top: -40px;
+        right: 0;
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+
+    .zoom-indicator {
+        bottom: -40px;
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .adaptive-image-frame {
+        margin: 15px auto;
+        padding: 10px;
+        max-width: 100%;
+    }
+    
+    .adaptive-image-frame img {
+        border-radius: 6px;
+    }
+
+    .lightbox-container {
+        max-width: 98%;
+        max-height: 80%;
+    }
+}
+
+/* Animações adicionais para o lightbox */
+@keyframes lightboxFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.lightbox-overlay.active .lightbox-container {
+    animation: lightboxFadeIn 0.3s ease;
+}
+
+/* Prevenção de scroll quando lightbox está ativo */
+body.lightbox-active {
+    overflow: hidden;
+}
+
+/* Estilo para imagens que podem ser ampliadas */
+.adaptive-image-frame img[data-lightbox] {
+    position: relative;
+}
+
+.adaptive-image-frame img[data-lightbox]::after {
+    content: '🔍';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(46, 139, 87, 0.8);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 50%;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.adaptive-image-frame:hover img[data-lightbox]::after {
+    opacity: 1;
+}
+

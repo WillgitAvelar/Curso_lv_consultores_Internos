@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seção de Imagens Adaptável - Demonstração</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2E8B57;
+            --secondary-green: #3CB371;
+            --accent-green: #90EE90;
+            --dark-green: #1F5F3F;
+            --light-green: #F0FFF0;
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --border-color: #E9ECEF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            border-radius: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: var(--light-gray);
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-green);
+        }
+
+        .section h2 {
+            color: var(--primary-green);
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        .section h3 {
+            color: var(--text-dark);
+            margin: 25px 0 15px 0;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .code-example {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--light-green), rgba(144, 238, 144, 0.3));
+            padding: 20px;
+            border-left: 5px solid var(--secondary-green);
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        /* Incluindo os estilos da seção de imagens adaptável */
+        .adaptive-image-frame {
+            display: inline-block;
+            position: relative;
+            margin: 25px auto;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--light-green), rgba(144, 238, 144, 0.2));
+            border: 3px solid var(--primary-green);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .adaptive-image-frame:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+            border-color: var(--secondary-green);
+        }
+
+        .adaptive-image-frame img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .adaptive-image-frame img:hover {
+            transform: scale(1.02);
+        }
+
+        .adaptive-image-container {
+            text-align: center;
+            margin: 30px 0;
+            width: 100%;
+        }
+
+        .adaptive-image-frame.subtle {
+            border: 2px solid rgba(46, 139, 87, 0.3);
+            background: rgba(240, 255, 240, 0.5);
+            padding: 10px;
+        }
+
+        .adaptive-image-frame.subtle:hover {
+            border-color: var(--primary-green);
+            background: rgba(240, 255, 240, 0.8);
+        }
+
+        .adaptive-image-frame.elevated {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: none;
+            background: var(--white);
+        }
+
+        .adaptive-image-frame.elevated:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .adaptive-image-caption {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: var(--text-light);
+            font-style: italic;
+            text-align: center;
+        }
+
+        .adaptive-images-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .adaptive-images-row .adaptive-image-frame {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+            margin: 0;
+        }
+
+        .adaptive-image-frame.fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .adaptive-image-frame {
+                margin: 20px auto;
+                padding: 12px;
+                max-width: 95%;
+            }
+            
+            .adaptive-images-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .adaptive-images-row .adaptive-image-frame {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-images"></i> Seção de Imagens Adaptável</h1>
+            <p>Demonstração da nova funcionalidade onde a moldura se ajusta automaticamente ao tamanho da imagem</p>
+        </header>
+
+        <section class="section">
+            <h2><i class="fas fa-magic"></i> Como Funciona</h2>
+            <p>A nova seção de imagens adaptável permite inserir imagens de qualquer tamanho e a moldura se ajusta automaticamente, mantendo o estilo visual consistente com o tema do site.</p>
+            
+            <div class="highlight">
+                <strong>Principais Benefícios:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Moldura se ajusta automaticamente ao tamanho da imagem</li>
+                    <li>Inserção simples via HTML</li>
+                    <li>Responsivo para todos os dispositivos</li>
+                    <li>Mantém a identidade visual do site</li>
+                    <li>Efeitos hover suaves e elegantes</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-code"></i> Uso Básico</h2>
+            <p>Para usar a seção de imagens adaptável, basta usar a seguinte estrutura HTML:</p>
+            
+            <div class="code-example">
+&lt;div class="adaptive-image-container"&gt;
+    &lt;div class="adaptive-image-frame"&gt;
+        &lt;img src="caminho-da-imagem.jpg" alt="Descrição da imagem"&gt;
+        &lt;div class="adaptive-image-caption"&gt;Legenda opcional&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-eye"></i> Demonstrações</h2>
+            
+            <h3>1. Imagem Padrão</h3>
+            <p>Moldura padrão com estilo verde consistente com o tema do site:</p>
+            
+            <div class="adaptive-image-container">
+                <div class="adaptive-image-frame fade-in">
+                    <img src="https://via.placeholder.com/400x300/2E8B57/FFFFFF?text=Imagem+400x300" alt="Exemplo de imagem 400x300">
+                    <div class="adaptive-image-caption">Imagem 400x300 pixels - Moldura se ajusta automaticamente</div>
+                </div>
+            </div>
+
+            <h3>2. Imagem Vertical</h3>
+            <p>A moldura se adapta perfeitamente a imagens verticais:</p>
+            
+            <div class="adaptive-image-container">
+                <div class="adaptive-image-frame subtle fade-in">
+                    <img src="https://via.placeholder.com/300x500/3CB371/FFFFFF?text=Imagem+Vertical+300x500" alt="Exemplo de imagem vertical">
+                    <div class="adaptive-image-caption">Imagem vertical 300x500 pixels - Estilo sutil</div>
+                </div>
+            </div>
+
+            <h3>3. Imagem Horizontal</h3>
+            <p>Funciona igualmente bem com imagens horizontais:</p>
+            
+            <div class="adaptive-image-container">
+                <div class="adaptive-image-frame elevated fade-in">
+                    <img src="https://via.placeholder.com/600x200/90EE90/2C3E50?text=Imagem+Horizontal+600x200" alt="Exemplo de imagem horizontal">
+                    <div class="adaptive-image-caption">Imagem horizontal 600x200 pixels - Estilo elevado</div>
+                </div>
+            </div>
+
+            <h3>4. Múltiplas Imagens</h3>
+            <p>Também é possível exibir múltiplas imagens em linha:</p>
+            
+            <div class="adaptive-images-row">
+                <div class="adaptive-image-frame fade-in">
+                    <img src="https://via.placeholder.com/250x200/2E8B57/FFFFFF?text=Imagem+1" alt="Primeira imagem">
+                    <div class="adaptive-image-caption">Primeira imagem</div>
+                </div>
+                <div class="adaptive-image-frame fade-in">
+                    <img src="https://via.placeholder.com/250x300/3CB371/FFFFFF?text=Imagem+2" alt="Segunda imagem">
+                    <div class="adaptive-image-caption">Segunda imagem</div>
+                </div>
+                <div class="adaptive-image-frame fade-in">
+                    <img src="https://via.placeholder.com/250x150/90EE90/2C3E50?text=Imagem+3" alt="Terceira imagem">
+                    <div class="adaptive-image-caption">Terceira imagem</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-palette"></i> Variações de Estilo</h2>
+            <p>A seção oferece três variações de estilo para diferentes necessidades:</p>
+            
+            <h3>Estilo Padrão</h3>
+            <p>Moldura com borda verde e fundo gradiente sutil.</p>
+            <div class="code-example">
+&lt;div class="adaptive-image-frame"&gt;
+    &lt;img src="imagem.jpg" alt="Descrição"&gt;
+&lt;/div&gt;
+            </div>
+
+            <h3>Estilo Sutil</h3>
+            <p>Moldura com borda mais discreta e fundo transparente.</p>
+            <div class="code-example">
+&lt;div class="adaptive-image-frame subtle"&gt;
+    &lt;img src="imagem.jpg" alt="Descrição"&gt;
+&lt;/div&gt;
+            </div>
+
+            <h3>Estilo Elevado</h3>
+            <p>Moldura sem borda com sombra mais pronunciada.</p>
+            <div class="code-example">
+&lt;div class="adaptive-image-frame elevated"&gt;
+    &lt;img src="imagem.jpg" alt="Descrição"&gt;
+&lt;/div&gt;
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-mobile-alt"></i> Responsividade</h2>
+            <p>A seção de imagens é totalmente responsiva e se adapta a diferentes tamanhos de tela:</p>
+            
+            <div class="highlight">
+                <strong>Características Responsivas:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Desktop:</strong> Exibição completa com todos os efeitos</li>
+                    <li><strong>Tablet:</strong> Molduras se ajustam ao espaço disponível</li>
+                    <li><strong>Mobile:</strong> Imagens empilhadas verticalmente para melhor visualização</li>
+                    <li><strong>Imagens múltiplas:</strong> Automaticamente reorganizadas em coluna única no mobile</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer style="text-align: center; margin-top: 50px; padding: 30px; background: var(--light-green); border-radius: 15px;">
+            <h3 style="color: var(--primary-green); margin-bottom: 15px;">
+                <i class="fas fa-check-circle"></i> Pronto para Usar!
+            </h3>
+            <p style="color: var(--text-dark);">
+                A seção de imagens adaptável está pronta para ser integrada ao seu site. 
+                Basta incluir o CSS e usar a estrutura HTML demonstrada acima.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Adiciona animação de entrada quando as imagens entram na viewport
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observa todos os elementos com a classe adaptive-image-frame
+        document.querySelectorAll('.adaptive-image-frame').forEach(frame => {
+            observer.observe(frame);
+        });
+
+        // Simula carregamento de imagem
+        document.querySelectorAll('.adaptive-image-frame img').forEach(img => {
+            img.addEventListener('load', function() {
+                this.parentElement.classList.remove('loading');
+            });
+            
+            img.addEventListener('error', function() {
+                this.parentElement.classList.remove('loading');
+                this.alt = 'Erro ao carregar imagem';
+            });
+        });
+    </script>
+</body>
+</html>
+

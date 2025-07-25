@@ -1,0 +1,171 @@
+/* Seção de Imagens Adaptável - Litoral Verde */
+
+/* Moldura adaptável que se ajusta ao tamanho da imagem */
+.adaptive-image-frame {
+    display: inline-block;
+    position: relative;
+    margin: 25px auto;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--light-green), rgba(144, 238, 144, 0.2));
+    border: 3px solid var(--primary-green);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    max-width: 100%;
+    text-align: center;
+}
+
+.adaptive-image-frame:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+    border-color: var(--secondary-green);
+}
+
+/* Imagem dentro da moldura adaptável */
+.adaptive-image-frame img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.adaptive-image-frame img:hover {
+    transform: scale(1.02);
+}
+
+/* Contêiner centralizado para a moldura */
+.adaptive-image-container {
+    text-align: center;
+    margin: 30px 0;
+    width: 100%;
+}
+
+/* Variação com borda mais sutil */
+.adaptive-image-frame.subtle {
+    border: 2px solid rgba(46, 139, 87, 0.3);
+    background: rgba(240, 255, 240, 0.5);
+    padding: 10px;
+}
+
+.adaptive-image-frame.subtle:hover {
+    border-color: var(--primary-green);
+    background: rgba(240, 255, 240, 0.8);
+}
+
+/* Variação com sombra mais pronunciada */
+.adaptive-image-frame.elevated {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border: none;
+    background: var(--white);
+}
+
+.adaptive-image-frame.elevated:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Legenda opcional para a imagem */
+.adaptive-image-caption {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: var(--text-light);
+    font-style: italic;
+    text-align: center;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    .adaptive-image-frame {
+        margin: 20px auto;
+        padding: 12px;
+        max-width: 95%;
+    }
+    
+    .adaptive-image-frame img {
+        border-radius: 8px;
+    }
+    
+    .adaptive-image-caption {
+        font-size: 0.85em;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .adaptive-image-frame {
+        margin: 15px auto;
+        padding: 10px;
+        max-width: 100%;
+    }
+    
+    .adaptive-image-frame img {
+        border-radius: 6px;
+    }
+}
+
+/* Estilo para múltiplas imagens em linha */
+.adaptive-images-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.adaptive-images-row .adaptive-image-frame {
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .adaptive-images-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .adaptive-images-row .adaptive-image-frame {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Animação de entrada suave */
+.adaptive-image-frame.fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Indicador de carregamento para imagens */
+.adaptive-image-frame.loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid var(--light-green);
+    border-top: 3px solid var(--primary-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
