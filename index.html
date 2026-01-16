@@ -552,8 +552,8 @@
                 <li><a href="#cadastroClientes"><i class="fas fa-user-plus"></i> Cadastro de Cliente</a></li>
                 <li><a href="#orcamentos"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a></li>
                 <li><a href="#reservas"><i class="fas fa-calendar-check"></i> Reservas</a></li>
-                <li><a href="#listas"><i class="fas fa-clipboard-list"></i> Listas</a></li>
-                <li><a href="#relatorios"><i class="fas fa-chart-line"></i> Relatórios</a></li>
+                <li><a href="#Bloqueios"><i class="fas fa-clipboard-list"></i> Bloqueios</a></li>
+               <!-- <li><a href="#relatorios"><i class="fas fa-chart-line"></i> Relatórios</a></li>-->
                 <li><a href="#dicas-avancadas"><i class="fas fa-star"></i> Dicas Avançadas</a></li>
             </ul>
         </aside>
@@ -1112,6 +1112,84 @@
                     <p><strong>Checklist final:</strong> Sempre confira todos os documentos antes de enviar ao cliente.</p>
                 </div>
             </section>   
+
+                        <!-- Seção: Bloqueios Aéreos -->
+            <section id="Bloqueios" class="section">
+                <!-- Título Principal da Seção -->
+                <h2><i class="fas fa-rocket"></i> Bloqueios</h2>
+                
+                <!-- Subtítulo e Introdução -->
+                <h3>Como pesquisar <strong>bloqueios aéreos</strong></h3>
+                <p>Nesse artigo você verá como pesquisar bloqueios aéreos</p>       
+                
+                <!-- Caminho de Navegação no Sistema -->
+                <ul class="list">
+                    <li>Menu</li>
+                    <li>bloqueios</li>
+                    <li>bloqueios de voos</li>
+                </ul>
+                
+                <p>Na tela inicial, será apresentado os campos de pesquisas.</p>
+                <img src="img/psblo.png" alt="Tela de bloqueios" class="content-image">
+
+                <!-- Detalhamento dos Campos de Pesquisa -->
+                <p>Veja em detalhes os campos de pesquisas</p>
+                <ul class="list">
+                    <li>ID: ID do bloqueio</li>
+                    <li>Voo: Número do voo</li>
+                    <li>Bloqueio: Localizador</li>
+                    <li>Origem: IATA do aeroporto de origem</li>
+                    <li>Destino: IATA do aeroporto de destino</li>
+                    <li>Ativo: Status do bloqueio</li>
+                    <li>Tarifário: Filtro para definir o status do bloqueio de voo (Todos, Ativo e Criação)</li>
+                    <li>Voo: Datas de Saídas</li>     
+                    <li>Deadline: Prazo do bloqueio</li>     
+                </ul>
+
+                <!-- Colunas de Retorno da Pesquisa -->
+                <p>Colunas no retorno da pesquisa de bloqueios aéreos</p>
+                <img src="img/coll.png" alt="Tela de bloqueios" class="content-image">
+                
+                <ul class="list">
+                    <li>ID: Ordem para localizar o bloqueio</li>
+                    <li>Localizador: Localizador da cia aérea</li>
+                    <li>Partida: IATA do aeroporto de origem, data e horário</li>
+                    <li>Chegada: IATA do aeroporto de destino, data e horário</li>
+                    <li>Cia aérea: Fornecedor</li>
+                    <li>Tarifa: Nome da tarifa cadastrada</li>
+                    <li>Deadline: Prazo do bloqueio</li>
+                    <li>Status: Ativo ou Stop</li>
+                    <li>Inicial: Quantidade de assentos ao qual o bloqueio iniciou</li>
+                    <li>Disp: Assentos disponíveis</li>
+                    <li>Reserv: Assentos reservados</li>
+                    <li>Conf: Assentos confirmados</li>
+                    <li>Canc: Assentos cancelados</li>
+                    <li>List: Assentos em lista de espera</li>
+                    <li>Orça: Assentos orçados</li>
+                </ul>
+
+                <!-- Exemplos Práticos de Pesquisa -->
+                <h3>Confira o exemplo de como pesquisar bloqueios aéreos</h3>
+                <p>As pesquisas de bloqueios aéreos podem ser feitas de diferentes formas, nesse artigo serão apresentados 03 exemplos.</p>
+                
+                <!-- Exemplo 1: Pesquisa por Destino e Data -->
+                <h3>Vamos simular a pesquisa de todos os voos com destino a NAT > ativo sim > voo de 01/01/2020 à 31/12/2020 > clique em para retornar a busca</h3>
+                <img src="img/pesq.png" alt="Tela de bloqueios" class="content-image">
+                <p>Veja que a pesquisa retornou 06 registros</p>
+                <img src="img/pesq1.png" alt="Tela de bloqueios" class="content-image">
+
+                <!-- Exemplo 2: Pesquisa por Status Stop -->
+                <h3>Nesse segundo exemplo, vamos pesquisar por todos os bloqueios aéreos que estejam em Stop com embarque de 01/01/2019 à 31/12/2020.</h3>
+                <img src="img/pesq3.png" alt="Tela de bloqueios" class="content-image">
+                <p>Total de 05 registros</p>
+                
+                <!-- Exemplo 3: Pesquisa por Localizador Específico -->
+                <p>Agora faremos a pesquisa pelo localizar TYU98X da cia aérea.</p>
+                <img src="img/pesq4.png" alt="Tela de bloqueios" class="content-image">
+                <p>Retorno da pesquisa:</p>
+                <img src="img/pesq5.png" alt="Tela de bloqueios" class="content-image">
+            </section>
+
 
             <!-- Rodapé da Página -->
             <footer class="footer">
